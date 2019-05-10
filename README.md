@@ -111,3 +111,118 @@ $ kubeadm init --config=kubeadm-config.yaml
 $ kubectl get pods -n kube-system -w
 ```
 
+## Secure Cluster Notifications
+
+- View the kube-config
+```
+$ cat .kube/config | more
+```
+
+- View the service account token:
+```
+$ kubectl get secrets
+```
+
+- Create a new namespace named my-ns:
+```
+$ kubectl create ns my-ns
+```
+
+- Run the kube-proxy pod in the my-ns namespace:
+```
+$ kubectl run test --image=chadmcrowell/kubectl-proxy -n my-ns
+```
+
+- List the pods in the my-ns namespace:
+```
+$ kubectl get pods -n my-ns
+```
+
+- Run a shell in the newly created pod:
+```
+$ kubectl exec -it <name-of-pod> -n my-ns sh
+```
+
+- List the services in the namespace via API call:
+```
+$ curl localhost:8001/api/v1/namespaces/my-ns/services
+```
+
+- View the token file from within a pod:
+```
+$ cat /var/run/secrets/kubernetes.io/serviceaccount/token
+```
+
+- List the service account resources in your cluster:
+```
+$ kubectl get serviceaccounts
+```
+
+## Test the Cluster
+
+- Run a simple nginx deployment:
+```
+$ kubectl run nginx --image=nginx
+```
+
+- View the deployments in your cluster:
+```
+$ kubectl get deployments
+```
+
+- View the pods in the cluster:
+```
+$ kubectl get pods
+```
+
+- Use port forwarding to access a pod directly:
+```
+$ kubectl port-forward $pod_name 8081:80
+```
+
+- Get a response from the nginx pod directly:
+```
+$ curl --head http://127.0.0.1:8081
+```
+
+- View the logs from a pod:
+```
+$ kubectl logs $pod_name
+```
+
+- Run a command directly from the container:
+
+```
+$ kubectl exec -it nginx -- nginx -v
+```
+
+- Create a service by exposing port 80 of the nginx deployment:
+```
+$ kubectl expose deployment nginx --port 80 --type NodePort
+```
+
+- List the services in your cluster:
+```
+$ kubectl get services
+```
+
+- Get a response from the service:
+```
+$ curl -I localhost:$node_port
+```
+
+- List the nodes' status:
+```
+$ kubectl get nodes
+```
+
+- View detailed information about the nodes:
+```
+$ kubectl describe nodes
+```
+
+- View detailed information about the pods:
+```
+$ kubectl describe pods
+```
+
