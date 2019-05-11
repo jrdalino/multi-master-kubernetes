@@ -116,6 +116,69 @@ $ kubectl annotate deployment nginx-deployment mycompany.com/someannotation="jos
 $ kubectl get pods --field-selector status.phase=Running
 ```
 
+### Command Cheat Sheet: Services
+- view Pods and their IP Addresses
+```
+$ kubectl get pods -o wide
+```
+
+- create service from yaml
+```
+$ kubectl create -f nginx-nodeport.yaml
+```
+
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-nodeport
+spec:
+  type: NodePort
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+    nodePort: 30080
+  selector:
+    app: nginx
+```
+
+- show the nginx-nodeport service
+```
+$ kubectl get services nginx-nodeport
+```
+
+- access the app over node port
+```
+$ curl localhost:30123
+```
+
+- View pods and their IP addreses
+```
+$ kubectl get pods -o wide
+```
+
+- Execute a command from a pod
+```
+$ kubectl exec busybox -- curl 10.244.2.9
+```
+
+```
+cat << EOF | kubectl create -f -
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox
+spec:
+  containers:
+  - name: busybox
+    image: radial/busyboxplus:curl
+    args:
+    - sleep
+    - "1000"
+EOF
+```
+
 ## Installation Prerequisites
 - Ubuntu 16
 
