@@ -180,7 +180,7 @@ EOF
 ```
 
 ## Installation Prerequisites
-- Ubuntu 16
+- Ubuntu 16.04
 
 ## Install Kubernetes Master and nodes
 
