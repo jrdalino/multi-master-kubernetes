@@ -256,10 +256,10 @@ $ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0
 
 - Join the worker nodes to the cluster
 ```
-$ kubeadm join [your unique string from the kubeadm init command]
+$ sudo kubeadm join [your unique string from the kubeadm init command]
 ```
 
-### Verify on Master
+### Verify Cluster Status on Master
 
 - Verify the worker nodes have joined the cluster succesfully
 ```
@@ -268,10 +268,10 @@ $ kubectl get nodes
 
 - Compare this result of the kubectl get nodes command
 ```
-NAME                            STATUS   ROLES    AGE   VERSION
-chadcrowell1c.mylabserver.com   Ready    master   4m18s v1.13.5
-chadcrowell2c.mylabserver.com   Ready    none     82s   v1.13.5
-chadcrowell3c.mylabserver.com   Ready    none     69s   v1.13.5
+NAME               STATUS   ROLES    AGE   VERSION
+ip-172-31-20-222   Ready    <none>   74s   v1.13.5
+ip-172-31-26-214   Ready    <none>   68s   v1.13.5
+ip-172-31-28-251   Ready    master   17m   v1.13.5
 ```
 
 ## Build a Highly Available Kubernetes Cluster
