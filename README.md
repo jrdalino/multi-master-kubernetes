@@ -1,9 +1,103 @@
-# multi-master-kubernetes
+# Multi Master Kubernetes
 
-## Prerequisites
+## Kubernetes Cluster Architecture
+
+### Control Plane: Master Node
+- API Server: communication hub for all cluster components, It exposes the kubernetes API
+- Scheduler: Assigns your app to a worker node. Auto detects which pod to assign to which node based on resource requirements, 
+- Controller Manager: Maintains the cluster, Handles nodes failures, replicating components, maintains the cirrect amount of pods
+- etcd: Stores cluster configuration
+
+### Data Plane: Worker Node
+- kubelet: Runs and manages the containers ont he node and talks to the API Server
+- kube-proxy: Load balancers traffic between application components
+- container-runtime: The program that runs your containers
+
+### Command Cheat Sheet: Nodes and Pods
+- list all the nodes in the cluster
+```
+$ kubectl get nodes
+```
+
+- list pods in all namespaces
+```
+$ kubectl get pods --all-namespaces
+```
+
+- list all the pods in the cluster in detail
+```
+$ kubectl get pods --all-namespaces -o wide
+```
+
+- show all the namespace names
+```
+$ kubectl get namespaces
+```
+
+- deploy Nginx Pod
+```
+$ cat << EOF | kubectl create -f -
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+EOF
+```
+
+- all details about the pod nginx
+```
+$ kubectl describe pod nginx
+```
+
+- delete the pod nginx
+```
+$ kubectl delete pod ngnix
+```
+
+### Command Cheat Sheet: Deployments and Labels
+- create deployment from yaml
+```
+$ kubectl create -f nginx.yaml
+```
+
+- get the full YAML back
+```
+$ kubetcl get-deployment nginx-deployment -o yaml
+```
+
+- show all pod labels
+```
+$ kubectl get pods --show-labels
+```
+
+- apply a label to a pod
+```
+$ kubectl label pods <pod name> env=prod
+```
+
+- see specific labels
+```
+$ kubectl get pods -L env
+```
+
+- annotate a deployment
+```
+$ kubectl annotate deployment nginx-deployment mycompany.com/someannotation="jose"
+```
+
+- use field selectors
+```
+$ kubectl get pods --field-selector status.phase=Running
+```
+
+## Installation Prerequisites
 - Ubuntu 16
 
-## Intall Kubernetes Master and nodes
+## Install Kubernetes Master and nodes
 
 - Get the Docker gpg key:
 ```
