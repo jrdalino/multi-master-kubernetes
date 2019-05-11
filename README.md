@@ -184,7 +184,7 @@ EOF
 
 ## Install Kubernetes Master and nodes
 
-### Install on Master and Worder Nodes
+### Install on Master and Worker Nodes
 
 - Get the Docker gpg key:
 ```
@@ -235,7 +235,7 @@ $ echo "net.bridge.bridge-nf-call-iptables=1" | sudo tee -a /etc/sysctl.conf
 $ sudo sysctl -p
 ```
 
-### Install on Cluster Only
+### Install on Master Only
 
 - Initialize the cluster (run only on the master)
 ```
