@@ -179,12 +179,10 @@ spec:
 EOF
 ```
 
-## Installation Prerequisites
+## Install Kubernetes
 - Ubuntu 16.04
 
-## Install Kubernetes Master and nodes
-
-### Install on Master and Worker Nodes
+### Install Prerequisites on Master and Workder Nodes
 
 - Get the Docker gpg key:
 ```
@@ -235,7 +233,7 @@ $ echo "net.bridge.bridge-nf-call-iptables=1" | sudo tee -a /etc/sysctl.conf
 $ sudo sysctl -p
 ```
 
-### Install on Master Only
+### Run on the Master Node Only
 
 - Initialize the cluster (run only on the master)
 ```
@@ -254,10 +252,14 @@ $ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 $ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/bc79dd1505b0c8681ece4de4c0d86c5cd2643275/Documentation/kube-flannel.yml
 ```
 
-- Join the worked nodes to the cluster
+### Run on Worker Nodes Only
+
+- Join the worker nodes to the cluster
 ```
 $ kubeadm join [your unique string from the kubeadm init command]
 ```
+
+### Verify on Master
 
 - Verify the worker nodes have joined the cluster succesfully
 ```
