@@ -107,7 +107,7 @@ ip-172-31-26-214   Ready    <none>   68s   v1.13.5
 ip-172-31-28-251   Ready    master   17m   v1.13.5
 ```
 
-## Build a Highly Available Kubernetes Cluster
+## Build a Highly Available Kubernetes Cluster (*This is complicated, use kops for this instead)
 
 - View the pods in the default namespace with a custom view:
 ```
