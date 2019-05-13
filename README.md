@@ -1,4 +1,4 @@
-# Multi Master Kubernetes
+# Kubernetes Single Master Node Manual Installation
 
 ## Kubernetes Cluster Architecture
 
